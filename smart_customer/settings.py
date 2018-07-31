@@ -25,7 +25,7 @@ SECRET_KEY = 'y!k$f1%hb+i#e85f4)-cd4=gx2*@@-2!dg#fbao)st&7r5_2a='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,7 +83,8 @@ DATABASES = {
         'NAME': 'consumer',
         'USER': 'postgres',  # Database username
         'PASSWORD': '85412369**$%%&*(/%$#qazxswEDC',
-        'HOST': 'ec2-54-175-121-21.compute-1.amazonaws.com',
+       # 'HOST': 'ec2-54-175-121-21.compute-1.amazonaws.com',
+	'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -126,11 +127,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = '/static/'
-#STATIC_ROOT = '/var/www/RRHH/static/'
-STATIC_ROOT = '/home/dark/proyectos/solucion/RRHH/static/'
+STATIC_ROOT = '/var/www/smart_customer/static/'
+#STATIC_ROOT = '/home/dark/proyectos/solucion/RRHH/static/'
 MEDIA_URL = '/media/'
-#HOST_MEDIA = '/var/www/RRHH/media/'
+HOST_MEDIA = '/var/www/smart_customer/media/'
 #HOST_MEDIA = '/home/dark/proyectos/solucion/RRHH/media/'
 #MEDIA_ROOT = '/home/dark/GestionRegistro/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGOUT_URL = "/accounts/login/"
