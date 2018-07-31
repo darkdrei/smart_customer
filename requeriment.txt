@@ -1,0 +1,11 @@
+certifi==2018.4.16
+Django==1.11
+django-jet==1.0.7
+pbr==4.0.4
+Pillow==5.1.0
+pyasn1==0.4.3
+pyasn1-modules==0.2.1
+python-ldap==3.1.0
+pytz==2018.5
+six==1.11.0
+stevedore==1.28.0
