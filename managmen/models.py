@@ -63,8 +63,8 @@ class Ponente(models.Model):
     estado = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name_plural = "Ciudades"
-        verbose_name = "Ciudad"
+        verbose_name_plural = "Ponentes"
+        verbose_name = "Ponente"
 
     def __unicode__(self):
         return '{}'.format(self.nombre)
