@@ -87,8 +87,8 @@ class Curso(models.Model):
     estado = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name_plural = "Ciudades"
-        verbose_name = "Ciudad"
+        verbose_name_plural = "Cursos"
+        verbose_name = "Curso"
 
     def __unicode__(self):
         return '{}'.format(self.nombre)
@@ -113,11 +113,33 @@ class Cliente(models.Model):
     estado = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name_plural = "Cliente"
-        verbose_name = "Clientes"
+        verbose_name_plural = "Clientes"
+        verbose_name = "Cliente"
 
     def __unicode__(self):
         return '{} {}'.format(self.nombre, self.apellidos)
 
     def __str__(self):
         return '{} {}'.format(self.nombre, self.apellidos)
+
+
+class SuscripcionCurso(models):
+    cliente = models.ForeignKey(Cliente)
+    curso = models.ForeignKey(Curso)
+    paga = models.BooleanField(default=False)
+    valor = models.FloatField(default=0)
+
+    class Meta:
+        verbose_name_plural = "Suscripciones curso"
+        verbose_name = "Suscripcion curso"
+
+    def __unicode__(self):
+        return '{} {} -- {}'.format(self.cliente.nombre if self.cliente else '',
+                                    self.clienteapellidos if self.cliente else '',
+                                    self.curso.nombre if self.curso else '')
+
+    def __str__(self):
+        return '{} {} -- {}'.format(self.cliente.nombre if self.cliente else '',
+                                    self.clienteapellidos if self.cliente else '',
+                                    self.curso.nombre if self.curso else '')
+
