@@ -123,7 +123,7 @@ class Cliente(models.Model):
         return '{} {}'.format(self.nombre, self.apellidos)
 
 
-class SuscripcionCurso(models):
+class SuscripcionCurso(models.Model):
     cliente = models.ForeignKey(Cliente)
     curso = models.ForeignKey(Curso)
     paga = models.BooleanField(default=False)

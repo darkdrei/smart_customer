@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -83,8 +84,8 @@ DATABASES = {
         'NAME': 'consumer',
         'USER': 'postgres',  # Database username
         'PASSWORD': '85412369**$%%&*(/%$#qazxswEDC',
-       # 'HOST': 'ec2-54-175-121-21.compute-1.amazonaws.com',
-	'HOST': '127.0.0.1',
+        #'HOST': 'ec2-54-175-121-21.compute-1.amazonaws.com',
+	    'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -127,11 +128,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/smart_customer/static/'
-#STATIC_ROOT = '/home/dark/proyectos/solucion/RRHH/static/'
+#STATIC_ROOT = '/home/dark/practicas/smart_customer/static/'
+STATIC_ROOT = '/var/wwww/smart_customer/static/'
 MEDIA_URL = '/media/'
-HOST_MEDIA = '/var/www/smart_customer/media/'
-#HOST_MEDIA = '/home/dark/proyectos/solucion/RRHH/media/'
+#HOST_MEDIA = '/home/dark/practicas/smart_customer/media/'
+HOST_MEDIA = '/var/wwww/smart_customer//media/'
 #MEDIA_ROOT = '/home/dark/GestionRegistro/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGOUT_URL = "/accounts/login/"

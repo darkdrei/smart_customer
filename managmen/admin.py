@@ -32,9 +32,19 @@ class CursoAdmin(admin.ModelAdmin):
     search_fields = ['ponente__nombre', 'ponente__descripcion', 'descripcion', 'ciudad__nombre']
 
 
+class SuscripcionInlineAdmin(admin.StackedInline):
+    model = models.SuscripcionCurso
+    extra = 1
+#end class
+
+
 class ClienteAdmin(admin.ModelAdmin):
+    inlines = [SuscripcionInlineAdmin]
     list_display = ['nombre', 'apellidos', 'tipo_documento', 'identificacion', 'sexo', 'correo', 'celular', 'telefono', 'ciudad']
 
+
+class SuscripcionesAdmin(admin.ModelAdmin):
+    list_display = ['cliente', 'curso', 'valor', 'valor']
 
 admin.site.register(models.Departamento, DepartamentoAdmin)
 admin.site.register(models.Ciudad, CiudadAdmin)
@@ -42,4 +52,5 @@ admin.site.register(models.Lugar, LugarAdmin)
 admin.site.register(models.Ponente, PonenteAdmin)
 admin.site.register(models.Curso, CursoAdmin)
 admin.site.register(models.Cliente, ClienteAdmin)
+admin.site.register(models.SuscripcionCurso, SuscripcionesAdmin)
 
