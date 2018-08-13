@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,6 +152,29 @@
   textarea {
       resize: none;
   }
+
+  img.slider{
+    max-height: 500px !important;
+  }
+
+  .card {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      width: 100%;
+  }
+
+  img.card-image{
+    width: 100%;
+    height: 300px !important;
+  }
+
+  .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  .container-card {
+      padding: 2px 16px;
+  }
   </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -169,20 +191,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#myPage">Menu 1</a></li>
-        <li><a href="#band">Menu 2</a></li>
-        <li><a href="#tour">Menu 3</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Elemento </a></li>
-            <li><a href="#">Elemento</a></li>
-            <li><a href="#">Elemento</a></li>
-          </ul>
-        </li>
-        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+        <li><a href="#myPage">INICIO</a></li>
+        <li><a href="#band">CURSOS</a></li>
+        <li><a href="#tour">PONENTES</a></li>
+        <li><a href="#contact">CONTACTANOS</a></li>
       </ul>
     </div>
   </div>
@@ -191,37 +203,26 @@
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
+      {% for c in ciudades %}
+          {% for lugar in c.imagenciudad_set.all %}
+              <li data-target="#myCarousel" data-slide-to="{{ lugar.id }}" class="{% if activate == lugar %} active {% endif %}" ></li>
+          {% endfor %}
+      {% endfor %}
     </ol>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <img src="{% static 'ima/imagen.jpg' %}" alt="New York" width="1200" height="700">
-        <div class="carousel-caption">
-          <h3>Ciudad</h3>
-          <p>Test 1.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <img src="{% static 'ima/ima2.jpg' %}" alt="Chicago" width="1200" height="700">
-        <div class="carousel-caption">
-          <h3>Ciudad</h3>
-          <p>Test 2.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <img src="{% static 'ima/ima3.jpg' %}" alt="Los Angeles" width="1200" height="700">
-        <div class="carousel-caption">
-          <h3>Ciudad 3</h3>
-          <p>Test 3</p>
-        </div>
-      </div>
-    </div>
+      {% for c in ciudades %}
+          {% for lugar in c.imagenciudad_set.all %}
+              <div class="item {% if activate == lugar %} active {% endif %}">
+                  <img src="{{ MEDIA_URL }}{{ lugar.imagen }}" alt="New York" width="1200" height="700"class="slider">
+                  <div class="carousel-caption">
+                    <h3>{{ lugar.titulo }}</h3>
+                    <p>{{ lugar.descripcion }}</p>
+                  </div>
+              </div>
+          {% endfor %}
+      {% endfor %}
 
     <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -233,192 +234,137 @@
       <span class="sr-only">Next</span>
     </a>
 </div>
+<!--  CURSP -->
+<div id="band" class="container text-center">
+  <h3>SMART CUNSUMERS CURSOS</h3>
+  <p><em>Te ayudamos en tu camino al exito.</em></p>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#cursos">Todos</a></li>
+    {% for c in ciudades %}
+      <li><a data-toggle="tab" href="#ciudad{{ c.id }}">{{ c.nombre }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    <div id="cursos" class="tab-pane fade in active">
+      <h3>TODOS</h3>
+      {% for c in ciudades %}
+            {% for curso in c.curso_set.all %}
+                {% if curso.activo %}
+                    <div class="col-sm-4">
+                      <div class="thumbnail card">
+                        <img src="{{ MEDIA_URL }}{{ curso.imagen }}" alt="{{ c.nombre }}" class="card-image">
+                        <p><strong>{{ curso.nombre }}</strong></p>
+                        <p>{{ curso.get_inicio }}</p>
+                        <p>{{ curso.get_hora }}</p>
+                        <button class="btn" data-toggle="modal" data-target="#myModal">Comprar</button>
+                      </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+      {% endfor %}
+    </div>
+    {% for c in ciudades %}
+        <div id="ciudad{{ c.id }}" class="tab-pane fade">
+          <h3>{{ c.nombre }}</h3>
+          {% for curso in c.curso_set.all %}
+              {% if curso.activo %}
+                  <div class="col-sm-4">
+                    <div class="thumbnail card">
+                      <img src="{{ MEDIA_URL }}{{ curso.imagen }}" alt="{{ c.nombre }}" class="card-image">
+                      <p><strong>{{ curso.nombre }}</strong></p>
+                      <p>{{ curso.get_inicio }}</p>
+                      <p>{{ curso.get_hora }}</p>
+                      <button class="btn" data-toggle="modal" data-target="#myModal">Comprar</button>
+                    </div>
+                  </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+    {% endfor %}
+  </div>
+</div>
 
 <!-- Container (The Band Section) -->
-<div id="band" class="container text-center">
-  <h4>Decripcion de cursos</h4>
-  <div class="row text-center slideanim">
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="{% static 'ima/imagen.jpg' %}" alt="Paris" width="400" height="300">
-        <p><strong>Curso</strong></p>
-        <p>Test Curso</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="{% static 'ima/ima3.jpg' %}" alt="Paris" width="400" height="300">
-        <p><strong>Curso</strong></p>
-        <p>Test Curso</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="{% static 'ima/ima2.jpg' %}" alt="Paris" width="400" height="300">
-        <p><strong>Curso</strong></p>
-        <p>Test Curso</p>
-      </div>
-    </div>
-</div>
 
 <!-- Container (TOUR Section) -->
 <div id="tour" class="bg-1">
-    <div class="container">
-        <h3>Smart</h3>
-          <p><em>Forlecete con nosotros!</em></p>
-          <p>Descripcion</p>
-          <br>
-          <div class="row">
-            <div class="col-sm-4">
-              <p class="text-center"><strong>Name</strong></p><br>
-              <a href="#demo" data-toggle="collapse">
-                <img src="bandmember.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
-              </a>
-              <div id="demo" class="collapse">
-                <p>Guitarist and Lead Vocalist</p>
-                <p>Loves long walks on the beach</p>
-                <p>Member since 1988</p>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <p class="text-center"><strong>Name</strong></p><br>
-              <a href="#demo2" data-toggle="collapse">
-                <img src="bandmember.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
-              </a>
-              <div id="demo2" class="collapse">
-                <p>Drummer</p>
-                <p>Loves drummin'</p>
-                <p>Member since 1988</p>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <p class="text-center"><strong>Name</strong></p><br>
-              <a href="#demo3" data-toggle="collapse">
-                <img src="bandmember.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
-              </a>
-              <div id="demo3" class="collapse">
-                <p>Bass player</p>
-                <p>Loves math</p>
-                <p>Member since 2005</p>
-              </div>
-            </div>
-          </div>
+  <div class="container">
+    <h3 class="text-center">PONENTES</h3>
+    <!--p class="text-center">Lorem ipsum we'll play you some music.<br> Remember to book your tickets!</p-->
+    <div class="row text-center">
+      {% for ponente in ponentes %}
+              {% if ponente.estado %}
+                  <div class="col-sm-4">
+                    <div class="thumbnail card">
+                      <img src="{{ MEDIA_URL }}{{ ponente.imagen }}" alt="{{ ponente.nombre }}" class="card-image">
+                      <p><strong>{{ ponente.nombre }}</strong></p>
+                      <p>{{ ponente.descripcion }}</p>
+                    </div>
+                  </div>
+              {% endif %}
+          {% endfor %}
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> Tickets</h4>
-        </div>
-        <div class="modal-body">
-          <form role="form">
-            <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-shopping-cart"></span> Tickets, $23 per person</label>
-              <input type="number" class="form-control" id="psw" placeholder="How many?">
-            </div>
-            <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Send To</label>
-              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
-            </div>
-              <button type="submit" class="btn btn-block">Pay
-                <span class="glyphicon glyphicon-ok"></span>
-              </button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
-            <span class="glyphicon glyphicon-remove"></span> Cancel
-          </button>
-          <p>Need <a href="#">help?</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- Container (Contact Section) -->
 <div id="contact" class="container">
-  <h3 class="text-center">Contacto</h3>
-  <p class="text-center"><em>Texto ?</em></p>
+  <h3 class="text-center">Contactanos</h3>
+  <p class="text-center"><em>Nosotros no comunicamos</em></p>
 
   <div class="row">
     <div class="col-md-4">
-      <p>Descripcion</p>
-      <p><span class="glyphicon glyphicon-map-marker"></span>Direccion</p>
-      <p><span class="glyphicon glyphicon-phone"></span>Cel</p>
-      <p><span class="glyphicon glyphicon-envelope"></span>Email</p>
+      <p>Informacion.</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span>{% if configuracion %} {{ configuracion.nombre }} {% endif %}</p>
+      <p><span class="glyphicon glyphicon-phone"></span>Phone: {% if configuracion %} {{ configuracion.celular }} {% endif %}</p>
+      <p><span class="glyphicon glyphicon-envelope"></span>Email: {% if configuracion %} {{ configuracion.correo }} {% endif %}</p>
     </div>
     <div class="col-md-8">
       <div class="row">
-        <div class="col-sm-6 form-group">
-          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
-        </div>
-        <div class="col-sm-6 form-group">
-          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+        <div class="col-sm-12 form-group">
+          <input class="form-control" id="name" name="name" placeholder="Nombre Completo" type="text" required>
         </div>
       </div>
-      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="celular" name="email" placeholder="Numero de contacto" type="email" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="email" name="email" placeholder="Correo Electronico" type="email" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <select class="form-control" id="sel1">
+            <option>Ciudad</option>
+              {% for c in ciudades %}
+                <option value="{{ c.id }}">{{ c.nombre }}</option>
+              {% endfor %}
+          </select>
+        </div>
+      </div>
+      </div>
       <br>
       <div class="row">
         <div class="col-md-12 form-group">
-          <button class="btn pull-right" type="submit">Send</button>
+          <button class="btn pull-right" type="submit">Enviar</button>
         </div>
       </div>
     </div>
   </div>
-  <br>
-  <h3 class="text-center">Blog</h3>
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Seccion 1</a></li>
-    <li><a data-toggle="tab" href="#menu1">Seccion 2</a></li>
-    <li><a data-toggle="tab" href="#menu2">Seccion 3</a></li>
-  </ul>
 
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h2>Seccion 1</h2>
-      <p>Texto Texto Texto Texto Texto Texto Texto Texto Texto Texto</p>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-      <h2>Seccion 2</h2>
-      <p>Texto Texto Texto Texto Texto Texto Texto Texto Texto Texto
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <h2>Seccion 3</h2>
-      <p>Texto Texto Texto Texto Texto Texto Texto Texto Texto Texto
-    </div>
-  </div>
 </div>
 
-<!-- Add Google Maps -->
-<div id="googleMap"></div>
-<script>
-function myMap() {
-var myCenter = new google.maps.LatLng(41.878114, -87.629798);
-var mapProp = {center:myCenter, zoom:12, scrollwheel:false, draggable:false, mapTypeId:google.maps.MapTypeId.ROADMAP};
-var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-var marker = new google.maps.Marker({position:myCenter});
-marker.setMap(map);
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-<!--
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
--->
 
 <!-- Footer -->
 <footer class="text-center">
   <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
     <span class="glyphicon glyphicon-chevron-up"></span>
   </a><br><br>
-  <p><a href="https://www.w3schools.com" data-toggle="tooltip" title="Visit w3schools">www.expressdelnorte.com</a></p>
+  <p><a href="http://www.expressdelnorte.com/" data-toggle="tooltip" title="Visit w3schools">www.expressdelnorte.com/</a></p>
 </footer>
 
 <script>

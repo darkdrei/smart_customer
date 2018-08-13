@@ -21,8 +21,8 @@ from django.conf import settings
 from smart_customer import views
 
 urlpatterns = [
-    #url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     #url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', admin.site.urls),
-    url(r'^$', TemplateView.as_view(template_name="smart_customer/index.html"), name='base'),
+    url(r'^$', views.LandingView.as_view(), name='base'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
