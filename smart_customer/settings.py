@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'smart_customer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'consumer',
         'USER': 'postgres',  # Database username
         'PASSWORD': '85412369**$%%&*(/%$#qazxswEDC',
@@ -127,11 +127,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/dark/practicas/smart_customer/static/'
-#STATIC_ROOT = '/var/wwww/smart_customer/static/'
+#STATIC_ROOT = '/home/dark/practicas/smart_customer/static/'
+STATIC_ROOT = '/var/wwww/smart_customer/static/'
 MEDIA_URL = '/media/'
 HOST_MEDIA = '/home/dark/practicas/smart_customer/media/'
-#HOST_MEDIA = '/var/wwww/smart_customer//media/'
-MEDIA_ROOT = '/home/dark/practicas/smart_customer/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+HOST_MEDIA = '/var/wwww/smart_customer//media/'
+#MEDIA_ROOT = '/home/dark/practicas/smart_customer/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGOUT_URL = "/accounts/login/"
