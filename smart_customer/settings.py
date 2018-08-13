@@ -128,10 +128,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = '/static/'
 #STATIC_ROOT = '/home/dark/practicas/smart_customer/static/'
-STATIC_ROOT = '/var/wwww/smart_customer/static/'
+STATIC_ROOT = '/var/www/smart_customer/static/'
 MEDIA_URL = '/media/'
 #HOST_MEDIA = '/home/dark/practicas/smart_customer/media/'
-HOST_MEDIA = '/var/wwww/smart_customer/media/'
+HOST_MEDIA = '/var/www/smart_customer/media/'
 #MEDIA_ROOT = '/home/dark/practicas/smart_customer/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGOUT_URL = "/accounts/login/"
