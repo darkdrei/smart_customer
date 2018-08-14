@@ -83,8 +83,8 @@ DATABASES = {
         'NAME': 'consumer',
         'USER': 'postgres',  # Database username
         'PASSWORD': '85412369**$%%&*(/%$#qazxswEDC',
-        #'HOST': 'ec2-54-175-121-21.compute-1.amazonaws.com',
-	    'HOST': '127.0.0.1',
+        'HOST': 'ec2-54-175-121-21.compute-1.amazonaws.com',
+	    #'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }

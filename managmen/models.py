@@ -116,7 +116,7 @@ class Curso(models.Model):
     precio = models.FloatField(default=0)
     ciudad = models.ForeignKey(Ciudad)
     lugar = models.ForeignKey(Lugar)
-    url_pago = models.CharField(max_length=1000, verbose_name="Link de pago")
+    url_pago = models.CharField(max_length=1000, verbose_name="Link de pago", null=True, blank=True)
     fecha = models.DateField(verbose_name="Fecha de realizacion", blank=True)
     inicio=models.TimeField(verbose_name="Hora de inicio", blank=True)
     fin=models.TimeField(verbose_name="Hora de fin", blank=True)
