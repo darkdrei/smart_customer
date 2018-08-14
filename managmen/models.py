@@ -20,8 +20,8 @@ MESES = {
 }
 
 class Departamento(models.Model):
-    nombre = models.CharField(max_length=20)
-    descripcion = models.TextField(max_length=50, verbose_name="Descripciòn", null=True, blank=True)
+    nombre = models.CharField(max_length=500)
+    descripcion = models.TextField(max_length=500, verbose_name="Descripciòn", null=True, blank=True)
     estado = models.BooleanField(default=True)
 
     class Meta:
@@ -38,8 +38,8 @@ class Departamento(models.Model):
 
 class Ciudad(models.Model):
     departamento = models.ForeignKey(Departamento)
-    nombre = models.CharField(max_length=20)
-    descripcion = models.TextField(max_length=50, verbose_name="Descripciòn", null=True, blank=True)
+    nombre = models.CharField(max_length=500)
+    descripcion = models.TextField(max_length=500, verbose_name="Descripciòn", null=True, blank=True)
     estado = models.BooleanField(default=True)
 
     class Meta:
@@ -55,8 +55,8 @@ class Ciudad(models.Model):
 
 class ImagenCiudad(models.Model):
     ciudad = models.ForeignKey(Ciudad)
-    titulo = models.CharField(max_length=50, blank=True, null=True)
-    descripcion = models.TextField(max_length=400, blank=True, null=True)
+    titulo = models.CharField(max_length=500, blank=True, null=True)
+    descripcion = models.TextField(max_length=1000, blank=True, null=True)
     imagen = models.ImageField(upload_to= 'ciudad/', null=True, blank=True)
     estado = models.BooleanField(default=True)
 
@@ -74,8 +74,8 @@ class ImagenCiudad(models.Model):
 
 class Lugar(models.Model):
     ciudad = models.ForeignKey(Ciudad)
-    nombre = models.CharField(max_length=20)
-    descripcion = models.TextField(max_length=50, verbose_name="Descripciòn", null=True, blank=True)
+    nombre = models.CharField(max_length=500)
+    descripcion = models.TextField(max_length=500, verbose_name="Descripciòn", null=True, blank=True)
     imagen = models.ImageField(upload_to='lugar/', null=True, blank=True)
     estado = models.BooleanField(default=True)
 
@@ -92,8 +92,8 @@ class Lugar(models.Model):
 
 
 class Ponente(models.Model):
-    nombre = models.CharField(max_length=20)
-    descripcion = models.TextField(max_length=50, verbose_name="Descripciòn", null=True, blank=True)
+    nombre = models.CharField(max_length=500)
+    descripcion = models.TextField(max_length=800, verbose_name="Descripciòn", null=True, blank=True)
     imagen = models.ImageField(upload_to='lugar/', null=True, blank=True)
     estado = models.BooleanField(default=True)
 
@@ -111,12 +111,12 @@ class Ponente(models.Model):
 class Curso(models.Model):
     ponente = models.ForeignKey(Ponente)
     imagen = models.ImageField(upload_to='media/curso/', null=True, blank=True)
-    nombre = models.CharField(max_length=20)
-    descripcion = models.TextField(max_length=50, verbose_name="Descripciòn")
+    nombre = models.CharField(max_length=500)
+    descripcion = models.TextField(max_length=1000, verbose_name="Descripciòn")
     precio = models.FloatField(default=0)
     ciudad = models.ForeignKey(Ciudad)
     lugar = models.ForeignKey(Lugar)
-    duracion = models.FloatField(verbose_name="Duracion en meses")
+    url_pago = models.CharField(max_length=1000, verbose_name="Link de pago")
     fecha = models.DateField(verbose_name="Fecha de realizacion", blank=True)
     inicio=models.TimeField(verbose_name="Hora de inicio", blank=True)
     fin=models.TimeField(verbose_name="Hora de fin", blank=True)
@@ -147,8 +147,8 @@ class Curso(models.Model):
 
 
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=20)
-    apellidos = models.CharField(max_length=40)
+    nombre = models.CharField(max_length=500)
+    apellidos = models.CharField(max_length=500)
     nacimiento = models.DateField(blank=True)
     tipo_documento = models.IntegerField(choices=((1, 'Cédula de Ciudadanía'), (2, 'Tarjeta de Identidad'),
                                                   (3, 'Tarjeta Pasaporte'), (4,'Cédula de Extranjería'),
@@ -193,11 +193,11 @@ class SuscripcionCurso(models.Model):
                                     self.curso.nombre if self.curso else '')
 
 class Configuracion(models.Model):
-    nombre = models.CharField(max_length=50, null=True, blank=True, default='Express del norte')
-    correo = models.CharField(max_length=30, null=True, blank=True)
-    celular = models.CharField(max_length=30, null=True, blank=True)
-    direccion = models.CharField(max_length=30, null=True, blank=True, verbose_name='Dirección')
-    mensaje = models.CharField(max_length=30, null=True, blank=True, verbose_name='Te contactaremos.')
+    nombre = models.CharField(max_length=500, null=True, blank=True, default='Express del norte')
+    correo = models.CharField(max_length=500, null=True, blank=True)
+    celular = models.CharField(max_length=500, null=True, blank=True)
+    direccion = models.CharField(max_length=500, null=True, blank=True, verbose_name='Dirección')
+    mensaje = models.CharField(max_length=500, null=True, blank=True, verbose_name='Te contactaremos.')
 
     class Meta:
         verbose_name_plural = "Configuraciones"

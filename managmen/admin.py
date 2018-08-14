@@ -48,7 +48,7 @@ class PonenteAdmin(admin.ModelAdmin):
 
 
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ['ponente', 'nombre', 'descripcion', 'ciudad', 'lugar', 'duracion', 'fecha' ,'inicio', 'fin', 'estado']
+    list_display = ['ponente', 'nombre', 'descripcion', 'ciudad', 'lugar', 'url_pago', 'fecha' ,'inicio', 'fin', 'estado']
     search_fields = ['ponente__nombre', 'ponente__descripcion', 'descripcion', 'ciudad__nombre']
 
 
